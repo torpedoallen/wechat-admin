@@ -1,0 +1,4 @@
+wechat-sdk
+requests
+flask
+werobot
