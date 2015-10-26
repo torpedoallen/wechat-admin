@@ -1,14 +1,15 @@
 # coding=utf8
 
+import config
 from flask import Flask, request
 from wechat_sdk import WechatBasic
 
 app = Flask(__name__)
+app.config.update(TOKEN=config.token)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    # 下面这些变量均假设已由 Request 中提取完毕
-    token = 'homie'  # 你的微信 Token
+    token = app.config['TOKEN']
     signature = request.args.get('signature', '')
     timestamp = request.args.get('timestamp', '')
     nonce = request.args.get('nonce', '')

@@ -1,5 +1,6 @@
 # coding=utf8
 
+import os
 
 app_id = ''
 secret = ''
@@ -8,4 +9,4 @@ aes_key = ''
 
 
 if os.path.exists('local_config.py'):
-    from .local_config import *
+    from local_config import *
