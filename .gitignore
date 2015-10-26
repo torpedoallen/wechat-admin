@@ -58,3 +58,4 @@ target/
 
 local_config.py
 .ropeproject/
+*.swp
