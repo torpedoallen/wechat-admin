@@ -3,6 +3,8 @@
 
 app_id = ''
 secret = ''
+token = ''
+aes_key = ''
 
 
 if os.path.exists('local_config.py'):
