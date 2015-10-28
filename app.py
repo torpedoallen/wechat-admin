@@ -83,11 +83,14 @@ def index():
     return response
 
 
+# TODO: to post
 @app.route('/menus', methods=['GET'])
-def get_menus():
-    menus = WechatMenuAdapter.get_menus()
-    return menus
+def create_menu():
+    menu = WechatMenuAdapter.create_menu(settings.menu)
+    return menu
 
+
+# TODO: to post
 @app.route('/qrcodes', methods=['GET'])
 def create_qrcode():
     name = request.args.get('name', '')
