@@ -47,7 +47,8 @@ class Qrcode(db.Model):
         code.username = name
         code.ticket = ticket
         code.url = url
-        code.save()
+        db.session.add(code)
+        db.session.commit()
         return code
 
 
@@ -61,10 +62,8 @@ def index():
     # 实例化 wechat
     wechat = WechatBasic(token=token)
 
-    if not wechat.check_signature(
-        signature=signature,
-        timestamp=timestamp,
-        nonce=nonce):
+    if not wechat.check_signature(signature=signature,
+                                  timestamp=timestamp, nonce=nonce):
         return 'fail'
 
     # 对签名进行校验
