@@ -42,10 +42,11 @@ class Qrcode(db.Model):
     url = db.Column(db.String(128))
 
     @classmethod
-    def create_code(cls, name, ticket):
+    def create_code(cls, name, ticket, url):
         code = cls()
         code.username = name
         code.ticket = ticket
+        code.url = url
         code.save()
         return code
 
