@@ -9,7 +9,7 @@ import wechat_wrapper as _wechat
 class WechatQrcodeAdapter(object):
 
     @classmethod
-    def create_qrcode(cls, **kw):
+    def create_qrcode(cls, name):
         token, expired_at = _wechat.get_access_token()
         wechat = WechatBasic(
             appid=settings.app_id,
@@ -18,8 +18,10 @@ class WechatQrcodeAdapter(object):
             access_token_expires_at=expired_at)
         payload = {
             "action_name": "QR_LIMIT_STR_SCENE",
-            "action_info": {"scene": {"scene_str": "张三"}}}
-        return wechat.create_qrcode(payload)
+            "action_info": {"scene": {"scene_str": name}}}
+        ticket = wechat.create_qrcode(payload)
+        Qrcode.create_code(name, ticket)
+        return ticket
 
     @classmethod
     def show_qrcode(cls, ticket):

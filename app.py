@@ -40,6 +40,14 @@ class Qrcode(db.Model):
     ticket = db.Column(db.String(128))
     url = db.Column(db.String(128))
 
+    @classmethod
+    def create_code(cls, name, ticket):
+        code = cls()
+        code.username = name
+        code.ticket = ticket
+        code.save()
+        return code
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -77,6 +85,12 @@ def index():
 def get_menus():
     menus = WechatMenuAdapter.get_menus()
     return menus
+
+@app.route('/qrcodes', methods=['GET'])
+def create_qrcode():
+    name = request.args.get('name', '')
+    ticket = WechatMenuAdapter.create_qrcode(name)
+    return ticket
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=19015, debug=True)
