@@ -4,8 +4,11 @@ import config
 from flask import Flask, request
 from wechat_sdk import WechatBasic
 
+from kits.menu import WechatMenuAdapter
+
 app = Flask(__name__)
 app.config.update(TOKEN=config.token)
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -17,7 +20,10 @@ def index():
     # 实例化 wechat
     wechat = WechatBasic(token=token)
 
-    if not wechat.check_signature(signature=signature, timestamp=timestamp, nonce=nonce):
+    if not wechat.check_signature(
+        signature=signature,
+        timestamp=timestamp,
+        nonce=nonce):
         return 'fail'
 
     # 对签名进行校验
@@ -34,6 +40,12 @@ def index():
     else:
         response = wechat.response_text(u'未知')
     return response
+
+
+@app.route('/menus', methods=['GET'])
+def get_menus():
+    menus = WechatMenuAdapter.get_menus()
+    return menus
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9998)
