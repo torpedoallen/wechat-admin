@@ -23,10 +23,23 @@ db_binds = {
 
 app.config['TOKEN'] = settings.token
 app.config['SQLALCHEMY_DATABASE_URI'] = db_str
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_BINDS'] = db_binds
 
 db = SQLAlchemy(app)
+
+
+# models
+class Qrcode(db.Model):
+
+    __bind_key__ = 'wechat_admin'
+    __tablename__ = 'qrcode'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True)
+    ticket = db.Column(db.String(128))
+    url = db.Column(db.String(128))
+
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
