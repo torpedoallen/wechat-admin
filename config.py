@@ -6,6 +6,7 @@ app_id = ''
 secret = ''
 token = ''
 aes_key = ''
+auto_replay_text = ''
 
 
 if os.path.exists('local_config.py'):

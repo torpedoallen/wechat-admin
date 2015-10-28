@@ -34,7 +34,7 @@ def index():
     wechat.parse_data(request.data)
     message = wechat.get_message()
     if message.type == 'text':
-        response = wechat.response_text(u'^_^')
+        response = wechat.response_text(config.auto_replay_text)
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     else:
