@@ -8,6 +8,11 @@ token = ''
 aes_key = ''
 auto_replay_text = ''
 
+db_hostname = '0.0.0.0'
+db_port = '3306'
+db_username = 'root'
+db_password = 'root'
+
 
 if os.path.exists('local_config.py'):
     from local_config import *
