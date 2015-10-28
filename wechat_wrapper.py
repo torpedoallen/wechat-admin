@@ -4,7 +4,7 @@
 import time
 import random
 import datetime
-import config
+import settings
 from wechat_sdk import WechatBasic
 from werkzeug.contrib.cache import SimpleCache
 
@@ -21,7 +21,7 @@ def get_access_token():
     token_expired_at = cache.get(TOKEN_EXPIRED_AT_KEY)
     if token:
         return token, token_expired_at
-    b = WechatBasic(appid=config.app_id, appsecret=config.secret)
+    b = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
     print 'get_access_token at:', datetime.datetime.now()
     d = b.get_access_token()
     token = d['access_token']
@@ -39,8 +39,8 @@ def get_jsapi_ticket():
 
     token, expired_at = get_access_token()
     b = WechatBasic(
-        appid=config.app_id,
-        appsecret=config.secret,
+        appid=settings.app_id,
+        appsecret=settings.secret,
         access_token=token,
         access_token_expires_at=expired_at)
 
@@ -60,8 +60,8 @@ def generate_jsapi_signature(url):
     ticket, expired_at = get_jsapi_ticket()
 
     b = WechatBasic(
-        appid=config.app_id,
-        appsecret=config.secret,
+        appid=settings.app_id,
+        appsecret=settings.secret,
         jsapi_ticket=ticket,
         jsapi_ticket_expires_at=expired_at)
 
@@ -72,7 +72,7 @@ def generate_jsapi_signature(url):
         timestamp, nonce, url, jsapi_ticket=ticket)
 
     return {
-        'appId': config.app_id,
+        'appId': settings.app_id,
         'timestamp': timestamp,
         'nonceStr': nonce,
         'signature': signature,

@@ -1,14 +1,32 @@
 # coding=utf8
 
-import config
-from flask import Flask, request
-from wechat_sdk import WechatBasic
+import settings
+from flask import request, Flask
 
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from wechat_sdk import WechatBasic
 from kits.menu import WechatMenuAdapter
 
-app = Flask(__name__)
-app.config.update(TOKEN=config.token)
 
+app = Flask(__name__)
+db_str = 'mysql://%s:%s@%s:%s/%s' % (
+    settings.db_username,
+    settings.db_password,
+    settings.db_hostname,
+    settings.db_port,
+    settings.db_name)
+
+db_binds = {
+    settings.db_name: db_str,
+}
+
+app.config['TOKEN'] = settings.token
+app.config['SQLALCHEMY_DATABASE_URI'] = db_str
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_BINDS'] = db_binds
+
+db = SQLAlchemy(app)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -34,7 +52,7 @@ def index():
     wechat.parse_data(request.data)
     message = wechat.get_message()
     if message.type == 'text':
-        response = wechat.response_text(config.auto_replay_text)
+        response = wechat.response_text(settings.auto_replay_text)
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     else:
@@ -48,4 +66,4 @@ def get_menus():
     return menus
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=9998)
+    app.run(host='0.0.0.0', port=19015, debug=True)

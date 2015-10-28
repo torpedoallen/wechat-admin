@@ -2,3 +2,5 @@ wechat-sdk
 requests
 flask
 werobot
+flask-sqlalchemy
+MySQL-python

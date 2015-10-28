@@ -1,7 +1,7 @@
 # coding=utf8
 
 
-import config
+import settings
 from wechat_sdk import WechatBasic
 import wechat_wrapper as _wechat
 
@@ -12,8 +12,8 @@ class WechatQrcodeAdapter(object):
     def create_qrcode(cls, **kw):
         token, expired_at = _wechat.get_access_token()
         wechat = WechatBasic(
-            appid=config.app_id,
-            appsecret=config.secret,
+            appid=settings.app_id,
+            appsecret=settings.secret,
             access_token=token,
             access_token_expires_at=expired_at)
         payload = {
@@ -23,6 +23,6 @@ class WechatQrcodeAdapter(object):
 
     @classmethod
     def show_qrcode(cls, ticket):
-        #wechat = WechatBasic(appid=config.app_id, appsecret=config.secret)
+        #wechat = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
         #return wechat.show_qrcode(ticket)
         return '''{"ticket":"gQH47joAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL2taZ2Z3TVRtNzJXV1Brb3ZhYmJJAAIEZ23sUwMEmm3sUw==","expire_seconds":60,"url":"http:\/\/weixin.qq.com\/q\/kZgfwMTm72WWPkovabbI"}'''

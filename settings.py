@@ -8,7 +8,7 @@ token = ''
 aes_key = ''
 auto_replay_text = ''
 
-db_hostname = '0.0.0.0'
+db_hostname = 'localhost'
 db_port = '3306'
 db_username = 'root'
 db_password = 'root'

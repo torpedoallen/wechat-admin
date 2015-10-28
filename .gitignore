@@ -56,6 +56,6 @@ docs/_build/
 # PyBuilder
 target/
 
-local_config.py
+local_settings.py
 .ropeproject/
 *.swp
