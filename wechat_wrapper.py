@@ -21,7 +21,9 @@ def get_access_token():
     token_expired_at = cache.get(TOKEN_EXPIRED_AT_KEY)
     if token:
         return token, token_expired_at
-    b = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
+    b = WechatBasic(
+        appid=settings.app_id,
+        appsecret=settings.secret)
     print 'get_access_token at:', datetime.datetime.now()
     d = b.get_access_token()
     token = d['access_token']

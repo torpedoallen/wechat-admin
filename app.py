@@ -7,6 +7,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 from wechat_sdk import WechatBasic
 from kits.menu import WechatMenuAdapter
+from kits.qrcode import WechatQrcodeAdapter
 
 
 app = Flask(__name__)
@@ -89,7 +90,7 @@ def get_menus():
 @app.route('/qrcodes', methods=['GET'])
 def create_qrcode():
     name = request.args.get('name', '')
-    ticket = WechatMenuAdapter.create_qrcode(name)
+    ticket = WechatQrcodeAdapter.create_qrcode(name)
     return ticket
 
 if __name__ == "__main__":

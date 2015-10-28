@@ -15,5 +15,5 @@ db_password = 'root'
 db_name = 'wechat_admin'
 
 
-if os.path.exists('local_config.py'):
-    from local_config import *
+if os.path.exists('local_settings.py'):
+    from local_settings import *
