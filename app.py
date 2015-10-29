@@ -40,7 +40,7 @@ class Qrcode(db.Model):
     __tablename__ = 'qrcode'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
+    scene = db.Column(db.String(64), unique=True, index=True)
     ticket = db.Column(db.String(128))
     url = db.Column(db.String(128))
     path = db.Column(db.String(128))
@@ -49,7 +49,7 @@ class Qrcode(db.Model):
     @classmethod
     def create_code(cls, name, ticket, url, path, hash_key):
         code = cls()
-        code.username = name
+        code.scene = name
         code.ticket = ticket
         code.url = url
         code.path = path

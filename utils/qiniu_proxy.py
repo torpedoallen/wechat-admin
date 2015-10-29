@@ -1,10 +1,10 @@
 # coding=utf8
 
 
-import qiniu
+import qiniu as _q
 import settings
 
-q = qiniu.Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
+q = _q.Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
 
 class PutPolicy(object):
 

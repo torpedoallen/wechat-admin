@@ -19,7 +19,7 @@ click_menu_text_mapper = {}
 qiniu_domain_mapper = {}
 bucket = ''
 qiniu_access_key = ''
-qiniu_secret_key ''
+qiniu_secret_key = ''
 
 if os.path.exists('local_settings.py'):
     from local_settings import *

@@ -6,7 +6,7 @@ from wechat_sdk import WechatBasic
 import settings
 import wechat_wrapper as _wechat
 
-from utils import qiniu
+from utils import qiniu_proxy as qiniu
 
 
 class WechatQrcodeAdapter(object):
