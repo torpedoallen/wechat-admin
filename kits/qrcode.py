@@ -32,12 +32,13 @@ class WechatQrcodeAdapter(object):
     def show_qrcode(cls, ticket):
         wechat = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
         resp = wechat.show_qrcode(ticket)
-        return str(resp)
+        if resp.status_code == 200:
+            return resp.content
 
     @classmethod
     def show_all_qrcodes(cls):
         # wtf
         from app import Qrcode
-        for code in Qrcode.objects.all():
-            ret = Qrcode.show_qrcode(code.ticket)
+        for code in Qrcode.query.all():
+            ret = cls.show_qrcode(code.ticket)
             yield code.username, ret

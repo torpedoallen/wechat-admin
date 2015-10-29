@@ -121,7 +121,7 @@ def create_qrcode():
 @app.route('/show_qrcodes', methods=['GET'])
 def show_qrcode():
     ret = list(WechatQrcodeAdapter.show_all_qrcodes())
-    return ret
+    return str(ret)
 
 
 
