@@ -9,8 +9,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from wechat_sdk import WechatBasic
 from wechat_sdk.messages import EventMessage
 
-from kits.menu import WechatMenuAdapter
-from kits.qrcode import WechatQrcodeAdapter
+from adapters.menu import WechatMenuAdapter
+from adapters.qrcode import WechatQrcodeAdapter
 
 
 app = Flask(__name__)
