@@ -4,6 +4,7 @@
 import qiniu
 import settings
 
+q = qiniu.Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
 
 class PutPolicy(object):
 
