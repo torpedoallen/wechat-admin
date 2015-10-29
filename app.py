@@ -58,7 +58,7 @@ class Qrcode(db.Model):
 class SubscribeEvent(db.Model):
 
     __bind_key__ = 'wechat_admin'
-    __tablename__ = 'subsribe_event'
+    __tablename__ = 'subscribe_event'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(64), index=True)
@@ -78,7 +78,7 @@ class SubscribeEvent(db.Model):
 class UnsubscribeEvent(db.Model):
 
     __bind_key__ = 'wechat_admin'
-    __tablename__ = 'unsubsribe_event'
+    __tablename__ = 'unsubscribe_event'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(64), index=True)
