@@ -122,7 +122,7 @@ def index():
     wechat.parse_data(request.data)
     message = wechat.get_message()
     if message.type == 'text':
-        response = wechat.response_text(settings.auto_replay_text)
+        response = wechat.response_text(content=settings.auto_replay_text)
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     elif isinstance(message, EventMessage):
@@ -133,7 +133,7 @@ def index():
                 scene = 'default'
 
             SubscribeEvent.create_event(message.source, scene, message.time)
-            response = wechat.response_text(content=settings.auto_replay_text)
+            response = wechat.response_text(content=settings.greetings)
 
         elif message.type == 'unsubscribe':
             UnsubscribeEvent.create_event(message.source, message.time)

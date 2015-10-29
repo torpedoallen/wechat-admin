@@ -6,6 +6,7 @@ app_id = ''
 secret = ''
 token = ''
 aes_key = ''
+greetings = ''
 auto_replay_text = ''
 
 db_hostname = 'localhost'
