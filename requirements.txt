@@ -4,3 +4,4 @@ flask
 werobot
 flask-sqlalchemy
 MySQL-python
+simplejson

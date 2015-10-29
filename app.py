@@ -85,8 +85,8 @@ def index():
 # TODO: to post
 @app.route('/menus', methods=['GET'])
 def create_menu():
-    menu = WechatMenuAdapter.create_menu(settings.menu)
-    return menu
+    message = WechatMenuAdapter.create_menu(settings.menu)
+    return message
 
 
 # TODO: to post
@@ -97,4 +97,4 @@ def create_qrcode():
     return ticket
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=19015, debug=True)
+    app.run(host='0.0.0.0', port=9998, debug=True)
