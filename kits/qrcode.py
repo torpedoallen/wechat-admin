@@ -1,6 +1,7 @@
 # coding=utf8
 
 
+import cStringIO
 from wechat_sdk import WechatBasic
 
 import settings
@@ -29,11 +30,15 @@ class WechatQrcodeAdapter(object):
         data = cls.show_qrcode(ticket)
         if not data:
             raise
+        output = cStringIO.StringIO()
+        output.write(data)
 
         # upload
         p = qiniu.PutPolicy(settings.bucket)
         path = '/qrcode/%s' % name
-        path, hash_key = p.upload(data, path)
+        path, hash_key = p.upload(output, path)
+        output.close()
+
         Qrcode.create_code(name, ticket, url, path, hash_key)
         p = qiniu.PublicGetPolicy(settings.bucket, path)
         return p.get_url()

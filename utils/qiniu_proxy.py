@@ -6,6 +6,11 @@ import settings
 
 q = _q.Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
 
+
+class UploadFailedError(Exception):
+    pass
+
+
 class PutPolicy(object):
 
     def __init__(self, scope):
@@ -14,7 +19,7 @@ class PutPolicy(object):
     def upload(self, data, path):
         token = q.upload_token(self.scope)
         data.seek(0)
-        ret, _ = qiniu.put_data(token, path, data)
+        ret, _ = _q.put_data(token, path, data)
         if ret:
             return path, ret['hash']
         raise UploadFailedError
@@ -28,7 +33,7 @@ class PrivateGetPolicy(object):
 
     def get_url(self):
         domain = settings.qiniu_domain_mapper.get(self.scope)
-        base_url = '%s%s' % (domain, self.path)
+        base_url = '%s/@%s' % (domain, self.path)
         return q.private_download_url(base_url, expires=3600)
 
 
@@ -40,6 +45,4 @@ class PublicGetPolicy(object):
 
     def get_url(self):
         domain = settings.qiniu_domain_mapper.get(self.scope)
-        return '%s%s' % (domain, self.path)
-
-
+        return '%s/@%s' % (domain, self.path)
