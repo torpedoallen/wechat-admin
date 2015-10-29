@@ -133,7 +133,7 @@ def index():
                 scene = 'default'
 
             SubscribeEvent.create_event(message.source, scene, message.time)
-            response = wechat.response_text(content=settings.greetings)
+            response = wechat.response_text(content=settings.auto_replay_text)
 
         elif message.type == 'unsubscribe':
             UnsubscribeEvent.create_event(message.source, message.time)

@@ -7,7 +7,6 @@ secret = ''
 token = ''
 aes_key = ''
 auto_replay_text = ''
-greetings = ''
 
 db_hostname = 'localhost'
 db_port = '3306'
