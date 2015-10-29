@@ -16,5 +16,7 @@ db_name = 'wechat_admin'
 
 menu = {}
 
+click_menu_text_mapper = {}
+
 if os.path.exists('local_settings.py'):
     from local_settings import *
