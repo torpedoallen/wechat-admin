@@ -1,5 +1,6 @@
 # coding=utf8
 
+import datetime
 import settings
 from flask import request, Flask
 
@@ -54,6 +55,46 @@ class Qrcode(db.Model):
         return code
 
 
+class SubscribeEvent(db.Model):
+
+    __bind_key__ = 'wechat_admin'
+    __tablename__ = 'subsribe_event'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(64), index=True)
+    scene = db.Column(db.String(32), index=True)
+    subscribed_at = db.Column(db.DateTime, index=True)
+
+    @classmethod
+    def create_event(cls, user_id, scene, subscribed_at):
+        event = cls()
+        event.user_id = user_id
+        event.scene = scene
+        event.subscribed_at = datetime.datetime.fromtimestamp(subscribed_at)
+        db.session.add(event)
+        db.session.commit()
+        return event
+
+class UnsubscribeEvent(db.Model):
+
+    __bind_key__ = 'wechat_admin'
+    __tablename__ = 'unsubsribe_event'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.String(64), index=True)
+    unsubscribed_at = db.Column(db.DateTime, index=True)
+
+    @classmethod
+    def create_event(cls, user_id, unsubscribed_at):
+        event = cls()
+        event.user_id = user_id
+        event.unsubscribed_at = datetime.datetime.fromtimestamp(unsubscribed_at)
+        db.session.add(event)
+        db.session.commit()
+        return event
+
+
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
     token = app.config['TOKEN']
@@ -80,14 +121,16 @@ def index():
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     elif isinstance(message, EventMessage):
-        if message.type == 'subscribe':  # 关注事件(包括普通关注事件和扫描二维码造成的关注事件)
-            if message.key and message.ticket:  # 如果 key 和 ticket 均不为空，则是扫描二维码造成的关注事件
-                scene = message.key.startswith('qrscene_') and message.key[8:] or ''
-                print scene
+        if message.type == 'subscribe':
+            if message.key and message.ticket:
+                scene = message.key.startswith('qrscene_') and message.key[8:] or 'default'
+                SubscribeEvent.create_event(message.source, scene, message.time)
                 response = wechat.response_text(content=u'用户尚未关注时的二维码扫描关注事件')
             else:
+                SubscribeEvent.create_event(message.source, 'default', message.time)
                 response = wechat.response_text(content=u'普通关注事件')
         elif message.type == 'unsubscribe':
+            UnsubscribeEvent.create_event(message.source, message.time)
             response = wechat.response_text(content=u'取消关注事件')
         elif message.type == 'scan':
             response = wechat.response_text(content=u'用户已关注时的二维码扫描事件')
