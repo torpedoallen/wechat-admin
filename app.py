@@ -43,13 +43,17 @@ class Qrcode(db.Model):
     username = db.Column(db.String(64), unique=True)
     ticket = db.Column(db.String(128))
     url = db.Column(db.String(128))
+    path = db.Column(db.String(128))
+    hash_key = db.Column(db.String(128))
 
     @classmethod
-    def create_code(cls, name, ticket, url):
+    def create_code(cls, name, ticket, url, path, hash_key):
         code = cls()
         code.username = name
         code.ticket = ticket
         code.url = url
+        code.path = path
+        code.hash_key = hash_key
         db.session.add(code)
         db.session.commit()
         return code
@@ -74,6 +78,7 @@ class SubscribeEvent(db.Model):
         db.session.add(event)
         db.session.commit()
         return event
+
 
 class UnsubscribeEvent(db.Model):
 
