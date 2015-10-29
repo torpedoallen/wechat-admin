@@ -6,3 +6,4 @@ flask-sqlalchemy
 MySQL-python
 simplejson
 qiniu
+gunicorn
