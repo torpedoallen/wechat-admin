@@ -4,10 +4,8 @@
 import settings
 
 
-import simplejson as json
 from wechat_sdk import WechatBasic
 import wechat_wrapper as _wechat
-
 
 
 class WechatQrcodeAdapter(object):
@@ -25,20 +23,16 @@ class WechatQrcodeAdapter(object):
             "action_name": "QR_LIMIT_STR_SCENE",
             "action_info": {"scene": {"scene_str": name}}}
         resp = wechat.create_qrcode(payload)
-        if resp.status_code == 200:
-            '''{"ticket":"gQH47joAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL2taZ2Z3TVRtNzJXV1Brb3ZhYmJJAAIEZ23sUwMEmm3sUw==","expire_seconds":60,"url":"http:\/\/weixin.qq.com\/q\/kZgfwMTm72WWPkovabbI"}'''
-            d = json.loads(resp.content)
-            ticket = d['ticket']
-            url = d['url']
-            Qrcode.create_code(name, ticket, url)
-            return url
+        ticket = resp.get('ticket', '')
+        url = resp.get('url', '')
+        Qrcode.create_code(name, ticket, url)
+        return url
 
     @classmethod
     def show_qrcode(cls, ticket):
         wechat = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
         resp = wechat.show_qrcode(ticket)
-        if resp.status_code == 200:
-            return resp.content
+        return str(resp)
 
     @classmethod
     def show_all_qrcodes(cls):
@@ -46,6 +40,4 @@ class WechatQrcodeAdapter(object):
         from app import Qrcode
         for code in Qrcode.objects.all():
             ret = Qrcode.show_qrcode(code.ticket)
-            if ret:
-                yield code.username, ret
-
+            yield code.username, ret

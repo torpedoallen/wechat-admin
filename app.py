@@ -114,8 +114,16 @@ def create_menu():
 @app.route('/qrcodes', methods=['GET'])
 def create_qrcode():
     name = request.args.get('name', '')
-    ticket = WechatQrcodeAdapter.create_qrcode(name)
-    return ticket
+    url = WechatQrcodeAdapter.create_qrcode(name)
+    return url
+
+
+@app.route('/show_qrcodes', methods=['GET'])
+def show_qrcode():
+    ret = list(WechatQrcodeAdapter.show_all_qrcodes())
+    return ret
+
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=9998, debug=True)
