@@ -5,3 +5,4 @@ werobot
 flask-sqlalchemy
 MySQL-python
 simplejson
+qiniu
