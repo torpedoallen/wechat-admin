@@ -129,11 +129,12 @@ def index():
         if message.type == 'subscribe':
             if message.key and message.ticket:
                 scene = message.key.startswith('qrscene_') and message.key[8:] or 'default'
-                SubscribeEvent.create_event(message.source, scene, message.time)
-                response = wechat.response_text(content=u'用户尚未关注时的二维码扫描关注事件')
             else:
-                SubscribeEvent.create_event(message.source, 'default', message.time)
-                response = wechat.response_text(content=u'普通关注事件')
+                scene = 'default'
+
+            SubscribeEvent.create_event(message.source, scene, message.time)
+            response = wechat.response_text(content=settings.greetings)
+
         elif message.type == 'unsubscribe':
             UnsubscribeEvent.create_event(message.source, message.time)
             response = wechat.response_text(content=u'取消关注事件')
