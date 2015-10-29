@@ -99,7 +99,6 @@ class UnsubscribeEvent(db.Model):
         return event
 
 
-
 @app.route('/', methods=['POST', 'GET'])
 def index():
     token = app.config['TOKEN']
