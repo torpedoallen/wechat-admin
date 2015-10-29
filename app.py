@@ -82,6 +82,8 @@ def index():
     elif isinstance(message, EventMessage):
         if message.type == 'subscribe':  # 关注事件(包括普通关注事件和扫描二维码造成的关注事件)
             if message.key and message.ticket:  # 如果 key 和 ticket 均不为空，则是扫描二维码造成的关注事件
+                scene = message.key.startswith('qrscene_') and message.key[8:] or ''
+                print scene
                 response = wechat.response_text(content=u'用户尚未关注时的二维码扫描关注事件')
             else:
                 response = wechat.response_text(content=u'普通关注事件')
