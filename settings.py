@@ -2,25 +2,27 @@
 
 import os
 
-app_id = ''
-secret = ''
-token = ''
-aes_key = ''
-greetings = ''
-auto_replay_text = ''
+APP_ID = ''
+SECRET = ''
+TOKEN = ''
+AES_KEY = ''
+GREETINGS = ''
+AUTO_REPLAY_TEXT = ''
 
-db_hostname = 'localhost'
-db_port = '3306'
-db_username = 'root'
-db_password = 'root'
-db_name = 'wechat_admin'
+DB_HOSTNAME = 'localhost'
+DB_PORT = '3306'
+DB_USERNAME = 'root'
+DB_PASSWORD = 'root'
+DB_NAME = 'wechat_admin'
 
-menu = {}
-click_menu_text_mapper = {}
-qiniu_domain_mapper = {}
-bucket = ''
-qiniu_access_key = ''
-qiniu_secret_key = ''
+MENU = {}
+CLICK_MENU_TEXT_MAPPER = {}
+QINIU_DOMAIN_MAPPER = {}
+BUCKET = ''
+QINIU_ACCESS_KEY = ''
+QINIU_SECRET_KEY = ''
 
 if os.path.exists('local_settings.py'):
+    # pylint: disable=W0401
     from local_settings import *
+    # pylint: enable=W0401
