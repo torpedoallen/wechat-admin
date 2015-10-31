@@ -1,3 +1,10 @@
+# coding=utf8
+
+
+import datetime
+from wechat_admin import db
+
+
 class SubscribeEvent(db.Model):
 
     __bind_key__ = 'wechat_admin'
@@ -36,5 +43,3 @@ class UnsubscribeEvent(db.Model):
         db.session.add(event)
         db.session.commit()
         return event
-
-

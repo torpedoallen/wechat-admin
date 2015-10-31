@@ -1,4 +1,17 @@
+# coding=utf8
 
+
+import settings
+
+from flask import request
+
+from wechat_sdk import WechatBasic
+from wechat_sdk.messages import EventMessage
+
+from wechat_admin import app
+from wechat_admin.models.statistics import SubscribeEvent, UnsubscribeEvent
+from wechat_admin.corelib.adapters.menu import WechatMenuAdapter
+from wechat_admin.corelib.adapters.qrcode import WechatQrcodeAdapter
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -29,7 +42,8 @@ def index():
     elif isinstance(message, EventMessage):
         if message.type == 'subscribe':
             if message.key and message.ticket:
-                scene = message.key.startswith('qrscene_') and message.key[8:] or 'default'
+                scene = message.key.startswith(
+                    'qrscene_') and message.key[8:] or 'default'
             else:
                 scene = 'default'
 
@@ -56,6 +70,7 @@ def index():
         response = wechat.response_text(u'未知')
     return response
 
+
 # TODO: to post
 @app.route('/menus', methods=['GET'])
 def create_menu():
@@ -75,6 +90,3 @@ def create_qrcode():
 def show_qrcode():
     ret = list(WechatQrcodeAdapter.show_all_qrcodes())
     return str(ret)
-
-
-

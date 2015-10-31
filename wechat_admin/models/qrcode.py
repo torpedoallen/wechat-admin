@@ -1,3 +1,9 @@
+# coding=utf8
+
+
+from wechat_admin import db
+
+
 class Qrcode(db.Model):
 
     __bind_key__ = 'wechat_admin'
@@ -21,5 +27,3 @@ class Qrcode(db.Model):
         db.session.add(code)
         db.session.commit()
         return code
-
-
