@@ -7,14 +7,14 @@ from wechat_sdk import WechatBasic
 import settings
 import wechat_wrapper as _wechat
 
-from utils import qiniu_proxy as qiniu
+from wechat_admin.vendors.qiniu import proxy as qiniu
+from wechat_admin.models.qrcode import Qrcode
 
 
 class WechatQrcodeAdapter(object):
 
     @classmethod
     def create_qrcode(cls, name):
-        from app import Qrcode
         token, expired_at = _wechat.get_access_token()
         wechat = WechatBasic(
             appid=settings.app_id,
@@ -53,7 +53,6 @@ class WechatQrcodeAdapter(object):
     @classmethod
     def show_all_qrcodes(cls):
         # wtf
-        from app import Qrcode
         for code in Qrcode.query.all():
             ret = cls.show_qrcode(code.ticket)
             yield code.username, ret
