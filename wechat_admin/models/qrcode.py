@@ -1,6 +1,7 @@
 # coding=utf8
 
-from webchat_admin import db
+from app import db
+
 
 class Qrcode(db.Model):
 

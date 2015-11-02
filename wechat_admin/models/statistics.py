@@ -2,7 +2,7 @@
 
 
 import datetime
-from wechat_admin import db
+from app import db
 
 
 class SubscribeEvent(db.Model):
