@@ -1,7 +1,12 @@
 # coding=utf8
 
 
-from wechat_admin import db
+#from wechat_admin import db
+from flask import current_app
+
+from flask.ext.sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy(current_app)
 
 
 class Qrcode(db.Model):
