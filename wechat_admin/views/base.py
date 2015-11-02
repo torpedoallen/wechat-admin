@@ -3,20 +3,21 @@
 
 import settings
 
-from flask import request
+from flask import request, Blueprint
 
 from wechat_sdk import WechatBasic
 from wechat_sdk.messages import EventMessage
 
-from wechat_admin import app
 from wechat_admin.models.statistics import SubscribeEvent, UnsubscribeEvent
 from wechat_admin.corelib.adapters.menu import WechatMenuAdapter
 from wechat_admin.corelib.adapters.qrcode import WechatQrcodeAdapter
 
+base_mod = Blueprint('/', __name__)
 
-@app.route('/', methods=['POST', 'GET'])
+
+@base_mod.route('/', methods=['POST', 'GET'])
 def index():
-    token = app.config['TOKEN']
+    token = settings.TOKEN
     signature = request.args.get('signature', '')
     timestamp = request.args.get('timestamp', '')
     nonce = request.args.get('nonce', '')
@@ -72,21 +73,21 @@ def index():
 
 
 # TODO: to post
-@app.route('/menus', methods=['GET'])
+@base_mod.route('/menus', methods=['GET'])
 def create_menu():
     message = WechatMenuAdapter.create_menu(settings.MENU)
     return message
 
 
 # TODO: to post
-@app.route('/qrcodes', methods=['GET'])
+@base_mod.route('/qrcodes', methods=['GET'])
 def create_qrcode():
     name = request.args.get('name', '')
     url = WechatQrcodeAdapter.create_qrcode(name)
     return url
 
 
-@app.route('/show_qrcodes', methods=['GET'])
+@base_mod.route('/show_qrcodes', methods=['GET'])
 def show_qrcode():
     ret = list(WechatQrcodeAdapter.show_all_qrcodes())
     return str(ret)

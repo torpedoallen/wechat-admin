@@ -27,3 +27,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_BINDS'] = db_binds
 
 db = SQLAlchemy(app)
+
+from wechat_admin.views.base import base_mod
+app.register_blueprint(base_mod)
