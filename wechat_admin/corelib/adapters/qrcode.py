@@ -5,7 +5,7 @@ import cStringIO
 from wechat_sdk import WechatBasic
 
 import settings
-import wechat_wrapper as _wechat
+from wechat_admin.corelib.adapters import auth as _wechat
 
 from wechat_admin.vendors.qiniu import proxy as qiniu
 from wechat_admin.models.qrcode import Qrcode
