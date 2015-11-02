@@ -7,7 +7,7 @@ security = Blueprint(
     '/security',
     __name__,
     url_prefix='/security',
-    template_folder='wechat_admin/security/templates')
+    template_folder='templates')
 
 
 @security.route('/login')
@@ -22,4 +22,4 @@ def logout():
 
 @security.route('/register')
 def register():
-    return render_template('register.html')
+    return render_template('register_user.html')
