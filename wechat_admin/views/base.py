@@ -12,10 +12,10 @@ from wechat_admin.models.statistics import SubscribeEvent, UnsubscribeEvent
 from wechat_admin.corelib.adapters.menu import WechatMenuAdapter
 from wechat_admin.corelib.adapters.qrcode import WechatQrcodeAdapter
 
-base_mod = Blueprint('/', __name__)
+base = Blueprint('/', __name__)
 
 
-@base_mod.route('/', methods=['POST', 'GET'])
+@base.route('/', methods=['POST', 'GET'])
 def index():
     token = settings.TOKEN
     signature = request.args.get('signature', '')
@@ -73,21 +73,21 @@ def index():
 
 
 # TODO: to post
-@base_mod.route('/menus', methods=['GET'])
+@base.route('/menus', methods=['GET'])
 def create_menu():
     message = WechatMenuAdapter.create_menu(settings.MENU)
     return message
 
 
 # TODO: to post
-@base_mod.route('/qrcodes', methods=['GET'])
+@base.route('/qrcodes', methods=['GET'])
 def create_qrcode():
     name = request.args.get('name', '')
     url = WechatQrcodeAdapter.create_qrcode(name)
     return url
 
 
-@base_mod.route('/show_qrcodes', methods=['GET'])
+@base.route('/show_qrcodes', methods=['GET'])
 def show_qrcode():
     ret = list(WechatQrcodeAdapter.show_all_qrcodes())
     return str(ret)
