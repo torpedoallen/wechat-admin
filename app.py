@@ -35,11 +35,11 @@ app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 
 db = SQLAlchemy(app)
 
-from wechat_admin.views.base import base_mod
+from wechat_admin.views.base import base
 from wechat_admin.views.admin import admin
 from wechat_admin.security.views import security
 
-app.register_blueprint(base_mod)
+app.register_blueprint(base)
 app.register_blueprint(admin)
 app.register_blueprint(security)
 
