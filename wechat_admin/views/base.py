@@ -36,7 +36,7 @@ def index():
     wechat.parse_data(request.data)
     message = wechat.get_message()
     if message.type == 'text':
-        response = wechat.response_text(content=settings.auto_replay_text)
+        response = wechat.response_text(content=settings.AUTO_REPLAY_TEXT)
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     elif isinstance(message, EventMessage):
@@ -48,7 +48,7 @@ def index():
                 scene = 'default'
 
             SubscribeEvent.create_event(message.source, scene, message.time)
-            response = wechat.response_text(content=settings.greetings)
+            response = wechat.response_text(content=settings.GREETINGS)
 
         elif message.type == 'unsubscribe':
             UnsubscribeEvent.create_event(message.source, message.time)
@@ -60,7 +60,7 @@ def index():
         elif message.type == 'location':
             response = wechat.response_text(content=u'上报地理位置事件')
         elif message.type == 'click':
-            content = settings.click_menu_text_mapper.get(message.key, u'未知')
+            content = settings.CLICK_MENU_TEXT_MAPPER.get(message.key, u'未知')
             response = wechat.response_text(content=content)
         elif message.type == 'view':
             response = wechat.response_text(content=u'自定义菜单跳转链接事件')
@@ -74,7 +74,7 @@ def index():
 # TODO: to post
 @app.route('/menus', methods=['GET'])
 def create_menu():
-    message = WechatMenuAdapter.create_menu(settings.menu)
+    message = WechatMenuAdapter.create_menu(settings.MENU)
     return message
 
 

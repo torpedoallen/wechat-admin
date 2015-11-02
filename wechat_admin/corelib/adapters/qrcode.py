@@ -17,8 +17,8 @@ class WechatQrcodeAdapter(object):
     def create_qrcode(cls, name):
         token, expired_at = _wechat.get_access_token()
         wechat = WechatBasic(
-            appid=settings.app_id,
-            appsecret=settings.secret,
+            appid=settings.APP_ID,
+            appsecret=settings.SECRET,
             access_token=token,
             access_token_expires_at=expired_at)
         payload = {
@@ -34,18 +34,18 @@ class WechatQrcodeAdapter(object):
         output.write(data)
 
         # upload
-        p = qiniu.PutPolicy(settings.bucket)
+        p = qiniu.PutPolicy(settings.BUCKET)
         path = '/qrcode/%s' % name
         path, hash_key = p.upload(output, path)
         output.close()
 
         Qrcode.create_code(name, ticket, url, path, hash_key)
-        p = qiniu.PublicGetPolicy(settings.bucket, path)
+        p = qiniu.PublicGetPolicy(settings.BUCKET, path)
         return p.get_url()
 
     @classmethod
     def show_qrcode(cls, ticket):
-        wechat = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
+        wechat = WechatBasic(appid=settings.APP_ID, appsecret=settings.SECRET)
         resp = wechat.show_qrcode(ticket)
         if resp.status_code == 200:
             return resp.content

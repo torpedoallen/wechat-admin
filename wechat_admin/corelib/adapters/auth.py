@@ -22,8 +22,8 @@ def get_access_token():
     if token:
         return token, token_expired_at
     b = WechatBasic(
-        appid=settings.app_id,
-        appsecret=settings.secret)
+        appid=settings.APP_ID,
+        appsecret=settings.SECRET)
     print 'get_access_token at:', datetime.datetime.now()
     d = b.get_access_token()
     token = d['access_token']
@@ -41,8 +41,8 @@ def get_jsapi_ticket():
 
     token, expired_at = get_access_token()
     b = WechatBasic(
-        appid=settings.app_id,
-        appsecret=settings.secret,
+        appid=settings.APP_ID,
+        appsecret=settings.SECRET,
         access_token=token,
         access_token_expires_at=expired_at)
 
@@ -62,8 +62,8 @@ def generate_jsapi_signature(url):
     ticket, expired_at = get_jsapi_ticket()
 
     b = WechatBasic(
-        appid=settings.app_id,
-        appsecret=settings.secret,
+        appid=settings.APP_ID,
+        appsecret=settings.SECRET,
         jsapi_ticket=ticket,
         jsapi_ticket_expires_at=expired_at)
 
@@ -74,7 +74,7 @@ def generate_jsapi_signature(url):
         timestamp, nonce, url, jsapi_ticket=ticket)
 
     return {
-        'appId': settings.app_id,
+        'appId': settings.APP_ID,
         'timestamp': timestamp,
         'nonceStr': nonce,
         'signature': signature,

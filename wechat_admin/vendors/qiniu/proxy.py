@@ -4,7 +4,7 @@
 import qiniu as _q
 import settings
 
-q = _q.Auth(settings.qiniu_access_key, settings.qiniu_secret_key)
+q = _q.Auth(settings.QINIU_ACCESS_KEY, settings.QINIU_SECRET_KEY)
 
 
 class UploadFailedError(Exception):
@@ -32,7 +32,7 @@ class PrivateGetPolicy(object):
         self.path = path
 
     def get_url(self):
-        domain = settings.qiniu_domain_mapper.get(self.scope)
+        domain = settings.QINIU_DOMAIN_MAPPER.get(self.scope)
         base_url = '%s/@%s' % (domain, self.path)
         return q.private_download_url(base_url, expires=3600)
 
@@ -44,5 +44,5 @@ class PublicGetPolicy(object):
         self.path = path
 
     def get_url(self):
-        domain = settings.qiniu_domain_mapper.get(self.scope)
+        domain = settings.QINIU_DOMAIN_MAPPER.get(self.scope)
         return '%s/@%s' % (domain, self.path)

@@ -9,6 +9,6 @@ class WechatMenuAdapter(object):
 
     @classmethod
     def create_menu(cls, data):
-        wechat = WechatBasic(appid=settings.app_id, appsecret=settings.secret)
+        wechat = WechatBasic(appid=settings.APP_ID, appsecret=settings.SECRET)
         resp = wechat.create_menu(data)
         return resp.get('errmsg', '')
