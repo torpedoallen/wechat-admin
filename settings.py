@@ -10,6 +10,7 @@ TOKEN = ''
 AES_KEY = ''
 GREETINGS = ''
 AUTO_REPLAY_TEXT = ''
+SECURITY_SECRET = ''
 
 DB_HOSTNAME = 'localhost'
 DB_PORT = '3306'
