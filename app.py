@@ -26,8 +26,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_str
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_BINDS'] = db_binds
 app.config['SECRET_KEY'] = settings.SECURITY_SECRET
+
 app.config['SECURITY_LOGIN_URL'] = '/security/login'
 app.config['SECURITY_LOGOUT_URL'] = '/security/logout'
+app.config['SECURITY_REGISTER_URL'] = '/security/register'
 
 db = SQLAlchemy(app)
 

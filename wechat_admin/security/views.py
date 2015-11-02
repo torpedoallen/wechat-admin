@@ -13,3 +13,13 @@ security = Blueprint(
 @security.route('/login')
 def login():
     return render_template('login.html')
+
+
+@security.route('/logout')
+def logout():
+    return render_template('logout.html')
+
+
+@security.route('/register')
+def register():
+    return render_template('register.html')
