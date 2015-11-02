@@ -32,6 +32,11 @@ app.config['SECURITY_LOGOUT_URL'] = '/security/logout'
 app.config['SECURITY_REGISTER_URL'] = '/security/register'
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+app.config['SECURITY_PASSWORD_HASH'] = 'sha512_crypt'
+app.config['SECURITY_PASSWORD_SALT'] = settings.SECURITY_SECRET
+app.config['SECURITY_POST_LOGIN_VIEW'] = '/admin'
+app.config['SECURITY_POST_LOGOUT_VIEW'] = '/admin'
+app.config['SECURITY_POST_REGISTER_VIEW'] = '/admin'
 
 db = SQLAlchemy(app)
 
@@ -42,12 +47,3 @@ from wechat_admin.security.views import security
 app.register_blueprint(base)
 app.register_blueprint(admin)
 app.register_blueprint(security)
-
-
-import flask.ext.login as flask_login
-
-login_manager = flask_login.LoginManager()
-login_manager.login_view = "/security/login"
-login_manager.login_view = "/security/login"
-login_manager.login_message = u"welcome"
-login_manager.init_app(app)

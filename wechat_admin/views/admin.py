@@ -7,7 +7,6 @@ from flask.ext.security import login_required
 admin = Blueprint('/admin', __name__, url_prefix='/admin')
 
 from app import app, db
-from wechat_admin.models.user import user_datastore
 
 @app.before_first_request
 def create_user():
