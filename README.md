@@ -51,6 +51,3 @@
 
 1. UI
 2. see those `TODO` comments
-
-
-## Welcome to submit pull requests to the repository, thanks in advance!
