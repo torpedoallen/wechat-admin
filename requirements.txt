@@ -7,3 +7,4 @@ MySQL-python
 simplejson
 qiniu
 gunicorn
+git+git://github.com/torpedoallen/flask-security#egg=flask-security
