@@ -1,7 +1,7 @@
 # coding=utf8
 
 
-from app import db
+from app import db, app
 from flask.ext.security import (
     Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin)
 
@@ -29,3 +29,5 @@ class User(db.Model, UserMixin):
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+
+

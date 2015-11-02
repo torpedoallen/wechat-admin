@@ -6,15 +6,19 @@ from flask.ext.security import login_required
 
 admin = Blueprint('/admin', __name__, url_prefix='/admin')
 
+from app import app, db
+from wechat_admin.models.user import user_datastore
+
+@app.before_first_request
+def create_user():
+    db.create_all()
+    #user_datastore.create_user(email='matt@nobien.net', password='password')
+    print '111'
+    #db.session.commit()
+
 
 # Views
 @admin.route('/')
 @login_required
 def home():
     return render_template('index.html')
-
-
-@admin.route('/login')
-def login():
-    callback = request.args.get('next', '/')
-    return redirect(callback, code=302)
