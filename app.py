@@ -40,8 +40,8 @@ app.config['SECURITY_POST_REGISTER_VIEW'] = '/admin'
 
 db = SQLAlchemy(app)
 
-from wechat_admin.views.base import base
-from wechat_admin.views.admin import admin
+from wechat_admin.base.views import base
+from wechat_admin.admin.views import admin
 from wechat_admin.security.views import security
 
 app.register_blueprint(base)
