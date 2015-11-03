@@ -8,7 +8,7 @@ from flask import request, Blueprint
 from wechat_sdk import WechatBasic
 from wechat_sdk.messages import EventMessage
 
-from wechat_admin.models.statistics import SubscribeEvent, UnsubscribeEvent
+from wechat_admin.base.models import SubscribeEvent, UnsubscribeEvent
 from wechat_admin.corelib.adapters.menu import WechatMenuAdapter
 from wechat_admin.corelib.adapters.qrcode import WechatQrcodeAdapter
 
