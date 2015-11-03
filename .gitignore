@@ -60,3 +60,4 @@ target/
 local_settings.py
 .ropeproject/
 *.swp
+node_modules/
