@@ -4,7 +4,7 @@ import flask.ext.login as flask_login
 from flask import Blueprint, render_template
 
 from app import app
-from wechat_admin.models.user import User
+from wechat_admin.security.models import User
 
 
 security = Blueprint(
