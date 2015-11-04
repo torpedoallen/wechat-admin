@@ -1,4 +1,3 @@
-wechat-sdk
 requests
 flask
 werobot
@@ -8,3 +7,4 @@ simplejson
 qiniu
 gunicorn
 git+git://github.com/torpedoallen/flask-security#egg=flask-security
+git+git://github.com/torpedoallen/wechat-python-sdk#egg=wechat-python-sdk

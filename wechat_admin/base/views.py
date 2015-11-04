@@ -37,7 +37,7 @@ def index():
     wechat.parse_data(request.data)
     message = wechat.get_message()
     if message.type == 'text':
-        response = wechat.response_text(content=settings.AUTO_REPLAY_TEXT)
+        response = wechat.group_transfer_message()
     elif message.type == 'image':
         response = wechat.response_text(u'图片')
     elif isinstance(message, EventMessage):
